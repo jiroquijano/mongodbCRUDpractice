@@ -13,17 +13,23 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true, useUnifiedTopology:tru
     //fetch db via client
     const db = client.db(databaseName);
 
-    db.collection('users').findOne({
-        name: "Bonna"
-    },(error,response)=>{
-        if(error) return console.log('did not find query');
-        console.log(response);
-    });
+    // db.collection('users').findOne({
+    //     name: "Bonna"
+    // },(error,response)=>{
+    //     if(error) return console.log('did not find query');
+    //     console.log(response);
+    // });
 
-    db.collection('users').findOne({
-        _id: new ObjectID("5e8ed4ba0a129043656ac70c")
-    },(error,response)=>{
-        if (error) return console.log(error);
-        console.log(response);
+    // db.collection('users').findOne({
+    //     _id: new ObjectID("5e8ed4ba0a129043656ac70c")
+    // },(error,response)=>{
+    //     if (error) return console.log(error);
+    //     console.log(response);
+    // });
+
+    const results = db.collection('users').find({
+        age: 28
     });
+    results.forEach(curr=>console.log(curr));
+    
 });
