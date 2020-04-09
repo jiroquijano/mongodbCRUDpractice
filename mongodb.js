@@ -11,9 +11,27 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true, useUnifiedTopology:tru
     }
     //fetch db via client
     const db = client.db(databaseName);
-    //insert document into 'users' collection
-    db.collection('users').insertOne({
-        name: 'Jiro',
-        age: 28
+    // //insert document into 'users' collection
+    // db.collection('users').insertOne({
+    //     name: 'Jiro',
+    //     age: 28
+    // }, (error, result)=>{
+    //     console.log(result.ops);
+    // });
+
+    db.collection('users').insertMany([
+        {
+            name:'Bonna',
+            age: 28
+        },{
+            name: 'Bok',
+            age: 27
+        }
+    ],(error, result)=>{
+        if(error){
+            return console.log(`operation failed`);
+        }
+        console.log(result.ops);
     });
+
 });
