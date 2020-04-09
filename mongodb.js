@@ -20,4 +20,10 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true, useUnifiedTopology:tru
         console.log(response);
     });
 
+    db.collection('users').findOne({
+        _id: new ObjectID("5e8ed4ba0a129043656ac70c")
+    },(error,response)=>{
+        if (error) return console.log(error);
+        console.log(response);
+    });
 });
