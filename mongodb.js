@@ -13,17 +13,16 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true, useUnifiedTopology:tru
     //fetch db via client
     const db = client.db(databaseName);
 
-    const resultUpdate = db.collection('users').updateOne({
-        _id: new ObjectID("5e8f442b3e2acffcfcb82802")
+    const updateResult = db.collection('tasks').updateMany({
+        completed: {$exists:true} //queries can have operators too check https://docs.mongodb.com/manual/reference/operator/query/
     },{
-        //for update operations, an update operator ($set for example) is needed
-        $set:{name:"Safiro"}
+        $set : {completed: true}
     });
 
-    resultUpdate.then((data)=>{
-        console.log(`data ${data}`);
+    updateResult.then((data)=>{
+        console.log(data);
     }).catch((error)=>{
-        console.log(`error`);
+        console.log(error);
     });
 
 });
