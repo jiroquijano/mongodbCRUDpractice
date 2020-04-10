@@ -13,14 +13,21 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true, useUnifiedTopology:tru
     //fetch db via client
     const db = client.db(databaseName);
 
-    const updateResult = db.collection('tasks').updateMany({
-        completed: {$exists:true} //queries can have operators too check https://docs.mongodb.com/manual/reference/operator/query/
-    },{
-        $set : {completed: true}
+    //single document delete
+    db.collection('users').deleteOne({
+        name: "Jiro"
+    },(error,response)=>{
+        if(error) return console.log(error);
+        console.log(response.connection);
     });
 
-    updateResult.then((data)=>{
-        console.log(data);
+    //multiple element delete using operator $in in query
+    const promiseTypeResult = db.collection('users').deleteMany({
+        name: {$in:["Jiro","Saf"]}
+    });
+
+    promiseTypeResult.then((data)=>{
+        console.log(`deleted ${data.deletedCount} entries`);
     }).catch((error)=>{
         console.log(error);
     });
